@@ -13,6 +13,18 @@ public class FilePartReader {
         this.toLine = 0;
     }
 
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public Integer getFromLine() {
+        return fromLine;
+    }
+
+    public Integer getToLine() {
+        return toLine;
+    }
+
     public void setup(String filePath, Integer fromLine, Integer toLine) {
         if (toLine < fromLine) throw new IllegalArgumentException("From Line cannot be after the To Line.");
         if (fromLine < 1) throw new IllegalArgumentException("From Line cannot be before the first line of text (< 1).");
@@ -35,18 +47,12 @@ public class FilePartReader {
 
     public String readLines() throws IOException{
         StringBuilder output = new StringBuilder();
-        int lineCounter = 1;
-        File source = new File(this.filePath);
-        if (!source.exists()) throw new IOException("File not found at given path.");
-        Scanner myReader = new Scanner(source);
-        while (myReader.hasNextLine() && lineCounter<=this.toLine) {
-            if (lineCounter >= this.fromLine && lineCounter <= this.toLine) {
-                output.append(myReader.nextLine()).append("\n");
+        String[] source = read().split("\n");
+        for(int i=0; i<source.length; i++) {
+            if (i+1 >= fromLine && i+1 <= toLine) {
+                output.append(source[i]).append("\n");
             }
-            lineCounter++;
-            System.out.println(lineCounter);
         }
-        myReader.close();
         return output.toString();
     }
 
