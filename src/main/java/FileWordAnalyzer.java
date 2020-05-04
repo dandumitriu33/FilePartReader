@@ -10,11 +10,19 @@ public class FileWordAnalyzer {
     }
 
     public ArrayList<String> getWordsOrderedAlphabetically() throws IOException {
-        String data = this.currentPartReader.readLines();
+        String data = getCurrentPartReader().readLines();
+        ArrayList<String> result = new ArrayList<>();
         String[] arr;
-        arr = data.split(" ");
+        arr = data.trim().split(" ");
         Arrays.sort(arr);
-        return (ArrayList<String>) Arrays.asList(arr);
+        for (String word : arr) {
+            result.add(word);
+        }
+        return result;
+    }
+
+    public FilePartReader getCurrentPartReader() {
+        return currentPartReader;
     }
 
     public ArrayList<String> getWordsContainingSubstring(String subWord) throws IOException {
@@ -38,6 +46,7 @@ public class FileWordAnalyzer {
         for (String word : arr) {
             if (word.equals(new StringBuilder(word).reverse().toString())) {
                 result.add(word);
+                System.out.print(word + " ");
             }
         }
         return result;

@@ -91,6 +91,7 @@ class FilePartReaderTest {
     }
 
     @Test
+    @DisplayName("returns string correctly")
     void readLines() throws IOException {
         FilePartReader testReader = new FilePartReader();
         testReader.setup("src/main/static/files/sample.txt", 1, 4);
