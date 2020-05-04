@@ -39,11 +39,12 @@ public class FilePartReader {
         File source = new File(this.filePath);
         if (!source.exists()) throw new IOException("File not found at given path.");
         Scanner myReader = new Scanner(source);
-        while (myReader.hasNextLine()) {
-            if (lineCounter >= this.fromLine || lineCounter <= toLine) {
+        while (myReader.hasNextLine() && lineCounter<=this.toLine) {
+            if (lineCounter >= this.fromLine && lineCounter <= this.toLine) {
                 output.append(myReader.nextLine()).append("\n");
             }
             lineCounter++;
+            System.out.println(lineCounter);
         }
         myReader.close();
         return output.toString();
